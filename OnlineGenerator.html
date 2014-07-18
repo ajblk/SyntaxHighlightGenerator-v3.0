@@ -1,0 +1,272 @@
+﻿<html>
+<head>
+	<script src='scripts/shGen-v3.0.js' type='text/javascript'></script>
+	<script src='scripts/shBrushJava.js' type='text/javascript'></script>
+	
+	<script src='scripts/shBrushCpp.js' type='text/javascript'></script>
+	<script src='scripts/shBrushCSharp.js' type='text/javascript'></script>
+	<script src='scripts/shBrushCss.js' type='text/javascript'></script>
+	<script src='scripts/shBrushDelphi.js' type='text/javascript'></script>
+	<script src='scripts/shBrushJScript.js' type='text/javascript'></script>
+	<script src='scripts/shBrushPhp.js' type='text/javascript'></script>
+	<script src='scripts/shBrushPython.js' type='text/javascript'></script>
+	<script src='scripts/shBrushRuby.js' type='text/javascript'></script>
+	<script src='scripts/shBrushSql.js' type='text/javascript'></script>
+	<script src='scripts/shBrushVb.js' type='text/javascript'></script>
+	<script src='scripts/shBrushXml.js' type='text/javascript'></script>
+	
+	<script src='scripts/shBrushAppleScript.js' type='text/javascript'></script>
+	<script src='scripts/shBrushAS3.js' type='text/javascript'></script>
+	<script src='scripts/shBrushBash.js' type='text/javascript'></script>
+	<script src='scripts/shBrushColdFusion.js' type='text/javascript'></script>
+	<script src='scripts/shBrushDiff.js' type='text/javascript'></script>
+	<script src='scripts/shBrushErlang.js' type='text/javascript'></script>
+	<script src='scripts/shBrushGroovy.js' type='text/javascript'></script>
+	<script src='scripts/shBrushJavaFX.js' type='text/javascript'></script>
+	<script src='scripts/shBrushPerl.js' type='text/javascript'></script>
+	<script src='scripts/shBrushPlain.js' type='text/javascript'></script>
+	<script src='scripts/shBrushPowerShell.js' type='text/javascript'></script>
+	<script src='scripts/shBrushSass.js' type='text/javascript'></script>
+	<script src='scripts/shBrushScala.js' type='text/javascript'></script>
+	
+	<link type="text/css" rel="stylesheet" 			title="CoreDefault" 	href="styles/shCoreDefault.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="CoreDjango" 		href="styles/shCoreDjango.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="ThemeDjango" 	href="styles/shThemeDjango.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="CoreEclipse"		href="styles/shCoreEclipse.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="CoreEmacs" 		href="styles/shCoreEmacs.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="CoreFadeToGrey" 	href="styles/shCoreFadeToGrey.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="CoreMDUltra" 	href="styles/shCoreMDUltra.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="CoreMidnight" 	href="styles/shCoreMidnight.css"/>
+	<link type="text/css" rel="Inactive stylesheet"	title="CoreRDark" 		href="styles/shCoreRDark.css"/>
+	<style>
+		.outputcss
+		{
+
+			font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,serif;
+			margin-bottom: 15px;
+			margin-top: 15px;
+			overflow: auto;
+			padding: 10px 15px;
+			border: 1px solid rgba(0, 0, 0, 0.15);
+			border-radius: 2px;
+			
+			/* Shadow :			horizontal offset , vertical offset, blur radius, spread radius, Color  */
+			
+			-moz-box-shadow:    3px 3px 5px 6px #ccc;
+			-webkit-box-shadow: 3px 3px 5px 6px #ccc;
+			box-shadow:         3px 3px 5px 6px #ccc;
+			
+		}
+		.highlightcodetextStyle
+		{
+			width: 680px; 
+			height: 400px; 
+			float:left;
+		}
+		.inputcode
+		{
+			float:left; 
+			margin:3px 0px 0px 20px;		
+		}
+		
+		
+		.configureoptionsStyle
+		{
+			float:left; 
+			margin:3px 0px 0px 20px;
+		}
+		.shlangtext
+		{
+			padding: 3px 5px 3px 5px;
+			border-radius: 4px;
+		}
+		.tip
+		{
+			color: rgb(64, 194, 60);
+			float: right;
+			font-size: 13px;
+			margin-right: 20px;
+			text-decoration: none;
+		}
+		select, input
+		{
+			margin-bottom:10px;
+		}
+	</style>
+	<script>		
+		getFormattedhtml = function()
+		{
+			var shcboxes = document.getElementsByName('sh-options[]');			
+			var args = {	
+								codeInputTextarea 	: "highlightcode",
+								previewDivId		: "PreviewSect",
+								htmlOutputDivId		: "outputhtml",
+								highlighterMainDivId: "highlighterMainDiv"
+						};
+			
+			// Check Options
+			for (var i=0; i < shcboxes.length; i++) 
+			{
+				args[shcboxes[i].value] = shcboxes[i].checked;	
+			}
+
+			// Set Language class
+			var shHighlightcodeDiv = document.getElementById('highlightcode'),
+				settingsValue="";
+		//		settingAttr = document.createAttribute("settings"),
+		//		settingAttr.value = "brush:"+ document.getElementsByName('sh-lang')[0].value + ";";	// "brush: js;"
+				settingsValue += "brush:"+ document.getElementsByName('sh-lang')[0].value + ";";	// "brush: js;"
+				settingsValue += "first-line:"+ document.getElementsByName('sh-firstline')[0].value + ";";	
+				settingsValue += "pad-line-numbers:"+ document.getElementsByName('sh-padline')[0].value + ";";					
+		//		settingsValue += "title:"+ document.getElementsByName('sh-title')[0].value + ";";
+		//	shHighlightcodeDiv.setAttributeNode(settingAttr);		
+			shHighlightcodeDiv.setAttribute("settings", settingsValue);	
+			shHighlightcodeDiv.setAttribute("title", document.getElementsByName('sh-title')[0].value);	
+			
+			
+			//Call Main Function
+			SyntaxHighlighter.all(args);
+			
+			switchtheme(document.getElementsByName('sh-theme')[0].value);
+			
+			return true;
+		}
+		
+		disableChkbox = function(showCtrlsChkbox,indx)
+		{
+			var shcboxes = document.getElementsByName('sh-options[]');	
+
+			if(!showCtrlsChkbox.checked)
+			{
+				shcboxes[indx].disabled = 'disabled';
+				shcboxes[indx].checked  = '';
+			}
+			else
+				shcboxes[indx].disabled = '';
+		}
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////               Single Click select all the Text in <div>                         ///////////
+		/////////////  Credit to Denis Sadowski        stackexchange.com/users/46228/denis-sadowski  ///////////
+		///////////////////////////////////////////////////////////////////////////////////////////////////////
+		selectText = function(containerid) {
+			if (document.selection) {
+				var range = document.body.createTextRange();
+				range.moveToElementText(containerid);
+				range.select();
+			} else if (window.getSelection) {
+				var range = document.createRange();
+				range.selectNode(containerid);
+				window.getSelection().addRange(range);
+			}
+		}	
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////                       To Dynamically Switch Theme                               ///////////
+		/////////////  Credit to        www.thesitewizard.com                                        ///////////
+		///////////////////////////////////////////////////////////////////////////////////////////////////////			
+		switchtheme = function(newTheme) {
+			console.log(newTheme);
+		  var i, linknode ;
+		  for (i = 0, linknode = document.getElementsByTagName("link") ;  i < linknode.length ; i++ ) 
+		  {	
+			if ((linknode[i].rel.indexOf( "stylesheet" ) != -1) && linknode[i].title) 
+			{
+				linknode[i].rel = "Inactive stylesheet";
+				linknode[i].disabled = true ;
+				
+			  
+				if (linknode[i].title == newTheme) 
+				{
+					linknode[i].rel = "stylesheet";
+					linknode[i].disabled = false ;
+				}
+			}
+		  }
+		}
+</script>	
+</head>
+<body>
+	<div id="InputBlock">		
+		<div>	
+			<div class="inputcode">
+				<p><b>1. Insert the Code Below</b></p>
+				<textarea name="highlightcode" id="highlightcode" style="width: 675px; height: 390px; float:left;"></textarea>
+			</div>
+			<div class="configureoptionsStyle">
+				<p><b>2. Configure Options</b></p>
+				
+				<table>
+				<tr>
+					<td>
+					Language : <!-- <input type="text" name="sh-lang" value="java" class="shlangtext" /> -->
+					
+					<select name="sh-lang" class="shlangtext">
+						<option value="java"> Java </option>
+						<option value="php"> PHP </option>
+						<option value="jscript"> Javascript </option>					
+						<option value="html"> HTML </option>
+						<option value="css"> CSS </option>
+						<option value="xml"> XML </option>					
+						<option value="Sql"> SQL </option>
+						<option value="csharp"> C# </option>					
+						<option value="cpp"> C++ </option>
+						<option value="vb"> Vb </option>
+						<option value="python"> Python </option>
+						<option value="ruby"> Ruby </option>
+						<option value="delphi"> Delphi </option>
+					</select>	
+					</td>
+					<td>&nbsp;</td>
+					<td>				
+					Theme :&nbsp; &nbsp;	
+					<select name="sh-theme" class="shlangtext">
+						<option value="CoreDefault"> Default </option>
+						<option value="CoreDjango"> Django </option>
+						<option value="CoreEclipse"> Eclipse </option>					
+						<option value="CoreEmacs"> Emacs </option>
+						<option value="CoreFadeToGrey"> FadeToGrey </option>
+						<option value="CoreMDUltra"> MDUltra </option>					
+						<option value="CoreRDark"> RDark </option>
+					</select>	
+					</td>
+				</tr>
+				</table>
+				<button onclick="getFormattedhtml();">Get Formatted HTML</button>
+				<br><br>
+				<fieldset style="padding: 20px;">
+					<legend>Advanced Settings (Optional)</legend>
+					
+					<input type="checkbox" name="sh-options[]" value="gutter" checked>Show Gutter<br>
+					<input type="checkbox" name="sh-options[]" value="toolbar" checked onclick="disableChkbox(this,2);">Show Toolbar<br>
+					<input type="checkbox" name="sh-options[]" value="collapse">Collapse All<br>
+					<input type="checkbox" name="sh-options[]" value="bloggerMode">Blogger Mode<br>	
+					<label for="sh-firstline">Start Line number : </label><input type="text" name="sh-firstline" value="1" class="shlangtext" style="width:50px;"/><br>
+					<label for="sh-padline">Line no. padding : </label><input type="text" name="sh-padline" value="1" class="shlangtext" style="width:50px;"/><br>
+					<label for="sh-title">Title Above Code : </label><input type="text" name="sh-title" class="shlangtext" style="width:250px;"/><br>					
+				</fieldset>					
+
+
+
+				<p>
+					
+				</p>				
+			</div>			
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<div id="OutputBlock">
+		<div id="PreviewBlock">
+			<p><b>3. Preview The Syntax Highlighted Code</b></p>
+			<div id="PreviewSect"></div>
+		</div>
+		<div id="CopySect">
+			<div>				
+					<b>4. Copy The HTML</b>				 
+					<span class="tip" onclick="selectText(document.getElementById('outputhtml'));">Click on the HTML to Select All</span>
+			</div>
+			<div id="outputhtml" class="outputcss" onclick="selectText(this);" ></div>		
+		</div>
+	</div>
+</body>
+</html>
