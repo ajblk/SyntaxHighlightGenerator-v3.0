@@ -1,5 +1,11 @@
-﻿<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+	
+	<title>Online Syntax Highlight Generator v3.0.8</title>
+	<meta name="description" content="An online tool to generate the code syntax highlighting styles for your language. It supports 25 languages like Java, PHP, CSS...Its the quickest way to load the code in  your website. Now it has Themes for several IDE's">
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+	
 	<script src='scripts/shGen-v3.0.js' type='text/javascript'></script>
 	<script src='scripts/shBrushJava.js' type='text/javascript'></script>
 	
@@ -88,10 +94,17 @@
 			margin-right: 20px;
 			text-decoration: none;
 		}
+		.hidediv { display:none;}
+		
+		.showdiv { display:block;}
+		
+		#CopySect p{ padding-top:7px;}
+		
 		select, input
 		{
 			margin-bottom:10px;
 		}
+		
 	</style>
 	<script>		
 		getFormattedhtml = function()
@@ -129,6 +142,8 @@
 			
 			switchtheme(document.getElementsByName('sh-theme')[0].value);
 			
+			setCopyThemeLib(document.getElementsByName('sh-theme')[0].value);
+			
 			return true;
 		}
 		
@@ -143,6 +158,15 @@
 			}
 			else
 				shcboxes[indx].disabled = '';
+		}
+		
+		
+		setCopyThemeLib = function(theme) {
+			var extCSSAnchor = document.getElementById('extCSSLink'),
+				extUrl="http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/styles/";
+				
+			extCSSAnchor.href		= extUrl + "sh" + theme + ".css" ;
+			extCSSAnchor.innerHTML	= extUrl + "sh" + theme + ".css";
 		}
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,7 +190,6 @@
 		/////////////  Credit to        www.thesitewizard.com                                        ///////////
 		///////////////////////////////////////////////////////////////////////////////////////////////////////			
 		switchtheme = function(newTheme) {
-			console.log(newTheme);
 		  var i, linknode ;
 		  for (i = 0, linknode = document.getElementsByTagName("link") ;  i < linknode.length ; i++ ) 
 		  {	
@@ -218,6 +241,7 @@
 					</select>	
 					</td>
 					<td>&nbsp;</td>
+					<td>&nbsp;</td>
 					<td>				
 					Theme :&nbsp; &nbsp;	
 					<select name="sh-theme" class="shlangtext">
@@ -235,7 +259,7 @@
 				<button onclick="getFormattedhtml();">Get Formatted HTML</button>
 				<br><br>
 				<fieldset style="padding: 20px;">
-					<legend>Advanced Settings (Optional)</legend>
+					<legend>Advanced Settings &nbsp;(<b>Optional</b>)</legend>
 					
 					<input type="checkbox" name="sh-options[]" value="gutter" checked>Show Gutter<br>
 					<input type="checkbox" name="sh-options[]" value="toolbar" checked onclick="disableChkbox(this,2);">Show Toolbar<br>
@@ -257,16 +281,26 @@
 	</div>
 	<div id="OutputBlock">
 		<div id="PreviewBlock">
-			<p><b>3. Preview The Syntax Highlighted Code</b></p>
+			<p><b>3. Preview the Code Syntax Highlighted</b></p>
 			<div id="PreviewSect"></div>
 		</div>
 		<div id="CopySect">
 			<div>				
-					<b>4. Copy The HTML</b>				 
+					<b>4. Copy the HTML</b>
 					<span class="tip" onclick="selectText(document.getElementById('outputhtml'));">Click on the HTML to Select All</span>
 			</div>
-			<div id="outputhtml" class="outputcss" onclick="selectText(this);" ></div>		
+			<div id="outputhtml" class="outputcss" onclick="selectText(this);" ></div>	
+			<div>				
+					<p><b>5. Add this External CSS and JS Library inside &lt;head&gt;</b></p>
+<div id="extLib" class="showdiv outputcss syntaxhighlighter nogutter html"  onclick="selectText(this);"><table cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">script</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/javascript"</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"<a href="http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/scripts/sh-v3.0-min.js">http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/scripts/sh-v3.0-min.js</a>"</code><code class="html plain">&gt;&lt;/</code><code class="html keyword">script</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html plain">&lt;</code><code class="html keyword">link</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/css"</code> <code class="html color1">rel</code><code class="html plain">=</code><code class="html string">"stylesheet"</code> <code class="html color1">href</code><code class="html plain">=</code><code class="html string">"<a id="extCSSLink" href="http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/styles/shCoreDefault.css">http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/styles/shCoreDefault.css</a>"</code><code class="html plain">/&gt;</code></div></div></td></tr></tbody></table></div>
+			</div>
+			<div>				
+					<p><b>6. Add this script before the end of &lt;/body&gt; tag</b></p>
+<div id="initScriptSnippet" class="showdiv outputcss syntaxhighlighter nogutter html"  onclick="selectText(this);"><table cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">script</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/javascript"</code><code class="html plain">&gt;SyntaxHighlighter.initialize();&lt;/</code><code class="html keyword">script</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div>	
+			</div>				
 		</div>
+
+		<div> &nbsp;<br/><br/></div>		
 	</div>
 </body>
 </html>

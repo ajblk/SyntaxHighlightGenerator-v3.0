@@ -193,8 +193,15 @@ var SyntaxHighlighter = function() {
 				return;
 		
 		
-			var gArgs = globalargs, // alias
-				presourcecode 			=(typeof gArgs.presourcecode !=='undefined')? gArgs.presourcecode : "presourcecode",	
+			var gArgs = globalargs; // alias
+			
+			
+			if(typeof gArgs ==='undefined')
+			{
+				gArgs={};
+			}			
+			
+			var	presourcecode 			=(typeof gArgs.presourcecode !=='undefined')? gArgs.presourcecode : "presourcecode",	
 				highlighterMainDivId	=(typeof gArgs.highlighterMainDivId !=='undefined')? gArgs.highlighterMainDivId : "highlighterMainDiv",		
 				containerId				=(typeof gArgs.containerId !=='undefined')? gArgs.containerId : "container",		
 				toolbarContainerId		=(typeof gArgs.toolbarContainerId !=='undefined')? gArgs.toolbarContainerId : "toolbarContainer",		
