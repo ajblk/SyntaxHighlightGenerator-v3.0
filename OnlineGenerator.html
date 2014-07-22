@@ -45,6 +45,7 @@
 	<link type="text/css" rel="Inactive stylesheet"	title="CoreMidnight" 	href="styles/shCoreMidnight.css"/>
 	<link type="text/css" rel="Inactive stylesheet"	title="CoreRDark" 		href="styles/shCoreRDark.css"/>
 	<style>
+		#mainHeading { padding-left: 25px;}
 		.outputcss
 		{
 
@@ -136,6 +137,13 @@
 			shHighlightcodeDiv.setAttribute("settings", settingsValue);	
 			shHighlightcodeDiv.setAttribute("title", document.getElementsByName('sh-title')[0].value);	
 			
+			//Set Highlight line
+			var highlightline = document.getElementsByName('sh-highlightline')[0],
+				hArr = validateHighlightline(highlightline.value);
+			
+			if(typeof hArr[0]!="undefined")
+				args['highlight']= hArr;
+			
 			
 			//Call Main Function
 			SyntaxHighlighter.all(args);
@@ -144,8 +152,39 @@
 			
 			setCopyThemeLib(document.getElementsByName('sh-theme')[0].value);
 			
+			showHiddenDiv();
+			
 			return true;
 		}
+		
+		validateHighlightline = function(text)
+		{
+			var result=[],
+				regex = /\s*?(\d+?)\s*?\,|\,??\s*?(\d+?)\s*?$/g,
+				match;
+			 
+			while ((match = regex.exec(text)) != null) 
+			{
+				if (match.index === regex.lastIndex) 
+				{
+					regex.lastIndex++;
+				}						
+				
+				if(typeof match[0]!="undefined")
+				{
+					if(typeof match[1]!="undefined")
+					{
+						result.push(match[1]);							
+					}
+					else if(typeof match[2]!="undefined")
+					{
+						result.push(match[2]);							
+					}	
+				}						
+			}		
+			return result;
+		}
+		
 		
 		disableChkbox = function(showCtrlsChkbox,indx)
 		{
@@ -168,6 +207,39 @@
 			extCSSAnchor.href		= extUrl + "sh" + theme + ".css" ;
 			extCSSAnchor.innerHTML	= extUrl + "sh" + theme + ".css";
 		}
+		
+		genHasClass = function(target, className)
+		{
+			return target.className.indexOf(className) != -1;
+		}	
+		
+		genAddClass = function(target, className)
+		{
+			if (!genHasClass(target, className))
+				target.className += ' ' + className;
+		}	
+		
+		genRemoveClass = function(target, className)
+		{
+			target.className = target.className.replace(className, '');
+		}
+		
+		showHiddenDiv = function() {
+			var tip1 = document.getElementById('tip1'),
+				outputhtml = document.getElementById('outputhtml'),
+				extLib = document.getElementById('extLib'),
+				initScriptSnippet = document.getElementById('initScriptSnippet');
+				
+				genAddClass(tip1,'showdiv');
+				genAddClass(outputhtml,'showdiv');
+				genAddClass(extLib,'showdiv');
+				genAddClass(initScriptSnippet,'showdiv');
+				
+				genRemoveClass(tip1,'hidediv');
+				genRemoveClass(outputhtml,'hidediv');
+				genRemoveClass(extLib,'hidediv');
+				genRemoveClass(initScriptSnippet,'hidediv');				
+		}		
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/////////////               Single Click select all the Text in <div>                         ///////////
@@ -210,6 +282,9 @@
 </script>	
 </head>
 <body>
+	<div id="mainHeading">
+		<h2>6  Steps to Code Syntax Highlight</h2>
+	</div>
 	<div id="InputBlock">		
 		<div>	
 			<div class="inputcode">
@@ -226,18 +301,32 @@
 					
 					<select name="sh-lang" class="shlangtext">
 						<option value="java"> Java </option>
-						<option value="php"> PHP </option>
-						<option value="jscript"> Javascript </option>					
-						<option value="html"> HTML </option>
+						<option value="actionscript3"> ActionScript </option>
+						<option value="applescript"> AppleScript </option>	
+						<option value="bash"> Bash </option>
+						<option value="cpp"> C </option>	
+						<option value="cpp"> C++ </option>						
+						<option value="csharp"> C# </option>
+						<option value="coldfusion"> ColdFusion </option>
 						<option value="css"> CSS </option>
-						<option value="xml"> XML </option>					
-						<option value="Sql"> SQL </option>
-						<option value="csharp"> C# </option>					
-						<option value="cpp"> C++ </option>
-						<option value="vb"> Vb </option>
-						<option value="python"> Python </option>
+						<option value="delphi"> Delphi </option>	
+						<option value="diff"> Diff </option>
+						<option value="erlang"> Erlang </option>
+						<option value="groovy"> Groovy </option>
+						<option value="javafx"> JavaFX </option>
+						<option value="jscript"> JavaScript </option>				
+						<option value="html"> HTML </option>	
+						<option value="perl"> Perl </option>
+						<option value="php"> PHP </option>	
+						<option value="powershell"> PowerShell </option>	
+						<option value="python"> Python </option>			
 						<option value="ruby"> Ruby </option>
-						<option value="delphi"> Delphi </option>
+						<option value="sass"> Saas </option>						
+						<option value="scala"> Scala </option>		
+						<option value="Sql"> SQL </option>
+						<option value="plain"> Text </option>
+						<option value="vb"> Vb </option>
+						<option value="xml"> XML </option>	
 					</select>	
 					</td>
 					<td>&nbsp;</td>
@@ -267,6 +356,7 @@
 					<input type="checkbox" name="sh-options[]" value="bloggerMode">Blogger Mode<br>	
 					<label for="sh-firstline">Start Line number : </label><input type="text" name="sh-firstline" value="1" class="shlangtext" style="width:50px;"/><br>
 					<label for="sh-padline">Line no. padding : </label><input type="text" name="sh-padline" value="1" class="shlangtext" style="width:50px;"/><br>
+					<label for="sh-highlightline">Highlight Line no. : </label><input type="text" name="sh-highlightline" class="shlangtext" style="width:245px;" placeholder="2, 3, 5 &nbsp;&nbsp;&nbsp;(comma separated line no.s)" title="2, 3, 5 &nbsp;&nbsp;&nbsp;(use comma separated line no.s to highlight the lines)"/><br>
 					<label for="sh-title">Title Above Code : </label><input type="text" name="sh-title" class="shlangtext" style="width:250px;"/><br>					
 				</fieldset>					
 
@@ -287,16 +377,16 @@
 		<div id="CopySect">
 			<div>				
 					<b>4. Copy the HTML</b>
-					<span class="tip" onclick="selectText(document.getElementById('outputhtml'));">Click on the HTML to Select All</span>
+					<span id="tip1" class="tip hidediv" onclick="selectText(document.getElementById('outputhtml'));">Click on the HTML to Select All</span>
 			</div>
-			<div id="outputhtml" class="outputcss" onclick="selectText(this);" ></div>	
+			<div id="outputhtml" class="hidediv outputcss" onclick="selectText(this);" ></div>	
 			<div>				
-					<p><b>5. Add this External CSS and JS Library inside &lt;head&gt;</b></p>
-<div id="extLib" class="showdiv outputcss syntaxhighlighter nogutter html"  onclick="selectText(this);"><table cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">script</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/javascript"</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"<a href="http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/scripts/sh-v3.0-min.js">http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/scripts/sh-v3.0-min.js</a>"</code><code class="html plain">&gt;&lt;/</code><code class="html keyword">script</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html plain">&lt;</code><code class="html keyword">link</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/css"</code> <code class="html color1">rel</code><code class="html plain">=</code><code class="html string">"stylesheet"</code> <code class="html color1">href</code><code class="html plain">=</code><code class="html string">"<a id="extCSSLink" href="http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/styles/shCoreDefault.css">http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/styles/shCoreDefault.css</a>"</code><code class="html plain">/&gt;</code></div></div></td></tr></tbody></table></div>
+					<p><b>5. Add External CSS and JS Library inside &lt;head&gt;</b></p>
+<div id="extLib" class="hidediv outputcss syntaxhighlighter nogutter html"  onclick="selectText(this);"><table cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">script</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/javascript"</code> <code class="html color1">src</code><code class="html plain">=</code><code class="html string">"<a href="http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/scripts/sh-v3.0-min.js">http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/scripts/sh-v3.0-min.js</a>"</code><code class="html plain">&gt;&lt;/</code><code class="html keyword">script</code><code class="html plain">&gt;</code></div><div class="line number2 index1 alt1"><code class="html plain">&lt;</code><code class="html keyword">link</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/css"</code> <code class="html color1">rel</code><code class="html plain">=</code><code class="html string">"stylesheet"</code> <code class="html color1">href</code><code class="html plain">=</code><code class="html string">"<a id="extCSSLink" href="http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/styles/shCoreDefault.css">http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/styles/shCoreDefault.css</a>"</code><code class="html plain">/&gt;</code></div></div></td></tr></tbody></table></div>
 			</div>
 			<div>				
-					<p><b>6. Add this script before the end of &lt;/body&gt; tag</b></p>
-<div id="initScriptSnippet" class="showdiv outputcss syntaxhighlighter nogutter html"  onclick="selectText(this);"><table cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">script</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/javascript"</code><code class="html plain">&gt;SyntaxHighlighter.initialize();&lt;/</code><code class="html keyword">script</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div>	
+					<p><b>6. Add script before the end of &lt;/body&gt; tag</b></p>
+<div id="initScriptSnippet" class="hidediv outputcss syntaxhighlighter nogutter html"  onclick="selectText(this);"><table cellpadding="0" cellspacing="0" border="0"><tbody><tr><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">&lt;</code><code class="html keyword">script</code> <code class="html color1">type</code><code class="html plain">=</code><code class="html string">"text/javascript"</code><code class="html plain">&gt;SyntaxHighlighter.initialize();&lt;/</code><code class="html keyword">script</code><code class="html plain">&gt;</code></div></div></td></tr></tbody></table></div>	
 			</div>				
 		</div>
 
