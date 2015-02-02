@@ -2029,6 +2029,7 @@ var SyntaxHighlighter = function() {
 									+ '</div>'
 								+ '</td>'
 							+ '</tr>'
+							+ '<tr><td>&nbsp;</td></tr>'
 						+ '</tbody>'
 					+ '</table>'
 				+ '</div>'
