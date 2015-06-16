@@ -8,5 +8,5 @@ A Online Generator Tool for the version 3.0 of <a href="https://github.com/synta
 # How to use
 Check this Online Syntax Highlight Generator Tool in http://ajblk.github.io/SyntaxHighlightGenerator-v3.0/OnlineGenerator.html
 
-For more step by step TODO explaination in this blog http://codeworkout.blogspot.com/2014/07/online-generator-tool-for-code-syntax_18.html
+For more step by step TODO explaination, check in this blog http://codeworkout.blogspot.com/2014/07/online-generator-tool-for-code-syntax_18.html
 
