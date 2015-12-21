@@ -2014,13 +2014,13 @@ var SyntaxHighlighter = function() {
 			
 			if (typeof(navigator) != 'undefined' && navigator.userAgent && navigator.userAgent.match(/MSIE/))
 				classes.push('ie');
-			
 			html = 
 				'<div id="' + getHighlighterId(this.id) + '" class="' + classes.join(' ') + '">'
 					+ (this.getParam('toolbar') ? sh.toolbar.getHtml(this) : '')
 					+ '<table border="0" cellpadding="0" cellspacing="0">'
 						+ this.getTitleHtml(this.getParam('title'))
 						+ '<tbody>'
+							+ '<tr><td>'+(this.getParam('bloggerMode') ? '<br style="clear:both;" />&nbsp;' : '')+'&nbsp;</td></tr>'					
 							+ '<tr>'
 								+ (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
 								+ '<td id="' + this.params.codeContainerId + '_' + this.id + '" class="code">'
@@ -2028,8 +2028,8 @@ var SyntaxHighlighter = function() {
 										+ html
 									+ '</div>'
 								+ '</td>'
-							+ '</tr>'
-							+ '<tr><td>&nbsp;</td></tr>'
+							+ '</tr>'							
+							+ '<tr><td>'+(this.getParam('bloggerMode') ? '<br style="clear:both;" />&nbsp;' : '')+'&nbsp;</td></tr>'
 						+ '</tbody>'
 					+ '</table>'
 				+ '</div>'
