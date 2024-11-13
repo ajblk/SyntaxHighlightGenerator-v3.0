@@ -25,8 +25,8 @@
 		var keywordsUpper =  'ARP ASSOC AT ATTRIB AUX BCDEDIT BREAK CACLS CALL CD CHCP CHDIR CHKDSK CHKNTFS CHOICE CIPHER CLIP CLS CMD CMDEXTVERSION COLOR COM COM1 COM2 COM3 COM4 COMP COMPACT CON CONVERT COPY CTTY DATE DEFINED DEL DIR DISKCOMP DISKCOPY DISKPART DO DOSKEY DPATH DRIVERQUERY ECHO ELSE ENDLOCAL EQU ERASE ERRORLEVEL EXIST EXIT EXPAND FC FIND FINDSTR FOR FORFILES FORMAT FSUTIL FTYPE GEQ GOTO GPRESULT GRAFTABL GTR HELP ICACLS IF IN IPCONFIG LABEL LEQ LPT LPT1 LPT2 LPT3 LPT4 LSS MAKECAB MD MKDIR MKLINK MODE MORE MOVE NEQ NET NETSH NOT NUL OPENFILES PATH PAUSE PING POPD PRINT PROMPT PUSHD RD RECOVER REG REM REN RENAME REPLACE RMDIR ROBOCOPY RUNDLL32 SC SCHTASKS SET SETLOCAL SETX SHIFT SHUTDOWN SORT START SUBST SYSTEMINFO TASKKILL TASKLIST TIME TIMEOUT TITLE TREE TYPE VER VERIFY VOL WMIC XCOPY';
 
 		this.regexList = [
-			{ regex: /\/[\w-\/]+/gm,										css: 'plain' },
-			{ regex: /\sREM.*$/gmi,											css: 'comments' },		// one line comments
+			{ regex: /\/[\w-\/]+/gm,						css: 'plain' },
+			{ regex: /\sREM\s.*$|^REM\s.*$/gmi,					css: 'comments' },		// one line comments
 			{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,			css: 'string' },		// double quoted strings
 			{ regex: SyntaxHighlighter.regexLib.singleQuotedString,			css: 'string' },		// single quoted strings
 			{ regex: new RegExp(this.getKeywords(keywords), 'gm'),			css: 'keyword' },		// keywords
